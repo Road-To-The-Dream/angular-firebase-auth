@@ -29,9 +29,16 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
+              "./node_modules/mdbootstrap/css/bootstrap.min.css",
+              "./node_modules/mdbootstrap/css/mdb.min.css",
+              "./node_modules/mdbootstrap/css/style.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/mdbootstrap/js/jquery.min.js",
+              "./node_modules/mdbootstrap/js/popper.min.js",
+              "./node_modules/mdbootstrap/js/mdb.min.js"
+            ]
           },
           "configurations": {
             "production": {
