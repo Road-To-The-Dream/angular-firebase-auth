@@ -15,6 +15,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AuthService} from "./services/auth.service";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -34,9 +36,12 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     MatButtonModule,
     MatIconModule,
     MatProgressBarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatChipsModule
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

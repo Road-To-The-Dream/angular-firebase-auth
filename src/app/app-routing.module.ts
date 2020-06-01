@@ -5,8 +5,8 @@ import {BasePageComponent} from "./base-page/base-page.component";
 
 
 const routes: Routes = [
-  { path: 'first-component', component: LoginComponent },
-  { path: 'second-component', component: BasePageComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'base', component: BasePageComponent },
 ];
 
 @NgModule({

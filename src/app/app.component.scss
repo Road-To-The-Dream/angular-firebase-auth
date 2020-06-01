@@ -2,3 +2,19 @@
   height: 6%;
   background-color: #9c27b0;
 }
+
+.mat-chip-list-wrapper {
+  display: block !important;
+}
+
+.home-icon {
+  font-size: 30px;
+}
+
+button:focus, button:active:focus, button.active:focus {
+  outline: none !important;
+}
+
+.logout-icon {
+  padding-right: 30px;
+}
