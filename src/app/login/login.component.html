@@ -5,23 +5,28 @@
       <mat-form-field appearance="fill" class="mb-3 animated bounceInLeft" color="accent">
         <mat-label>Enter your email</mat-label>
         <input matInput placeholder="pat@example.com" [formControl]="email" required>
-        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-error *ngIf="email.invalid">{{getErrorMessageLogin()}}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill" color="accent" class="animated bounceInRight">
         <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hidePassword ? 'password' : 'text'">
+        <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" required>
         <button mat-icon-button matSuffix
                 (click)="hidePassword = !hidePassword"
                 [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hidePassword">
+                [attr.aria-pressed]="hidePassword"
+        >
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
+        <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
       </mat-form-field>
 
       <div class="row animated bounceInUp">
         <div class="col-12 text-right">
-          <button mat-raised-button color="accent">Login</button>
+          <button mat-raised-button color="accent"
+                  [disabled]="email.invalid || password.invalid"
+                  (click)="login()"
+          >Login</button>
         </div>
       </div>
 

@@ -1,37 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import * as firebase from "firebase";
+import {Component} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(8),
+    Validators.minLength(3)
+  ]);
   hidePassword: boolean = true;
 
-  ngOnInit(): void {
-    const firebaseConfig = {
-      apiKey: "AIzaSyB0D_p8H1VxS-1-2SCRSAY6WOAN4W0CZJQ",
-      authDomain: "angular-firebase-auth-eb381.firebaseapp.com",
-      databaseURL: "https://angular-firebase-auth-eb381.firebaseio.com",
-      projectId: "angular-firebase-auth-eb381",
-      storageBucket: "angular-firebase-auth-eb381.appspot.com",
-      messagingSenderId: "614252779818",
-      appId: "1:614252779818:web:87fc48dd37f94c3140e653"
-    };
-
-    const response = firebase.initializeApp(firebaseConfig);
+  constructor(
+    public authService: AuthService
+  ) {
   }
 
-  getErrorMessage() {
+  getErrorMessageLogin() {
     if (this.email.hasError('required')) {
       return 'You must enter a value';
     }
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  getErrorMessagePassword() {
+    if (this.password.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    if (this.password.hasError('minlength')) {
+      return 'Minimum 3 character';
+    }
+
+    if (this.password.hasError('maxlength')) {
+      return 'Maximum 8 character';
+    }
+
+    return this.email.hasError('password') ? 'Not a valid password' : '';
+  }
+
+  login() {
+    if (this.email.valid || this.password.valid) {
+      this.authService.login(this.email.value, this.password.value);
+    }
   }
 
 }
