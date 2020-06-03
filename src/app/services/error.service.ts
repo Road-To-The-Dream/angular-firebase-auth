@@ -8,9 +8,4 @@ export class ErrorService {
 
   public receivedError = new Subject();
 
-  constructor() { }
-
-  public showError(message: string): void {
-    this.receivedError.next(message);
-  }
 }
