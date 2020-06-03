@@ -52,4 +52,11 @@ export class LoginComponent {
     }
   }
 
+  registration() {
+    if (this.email.valid || this.password.valid) {
+      this.authService.registration(this.email.value, this.password.value);
+    }
+  }
+
+
 }

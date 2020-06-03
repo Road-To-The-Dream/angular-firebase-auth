@@ -23,13 +23,20 @@
 
       <div class="row animated bounceInUp">
         <div class="col-12 text-right">
+          <button mat-raised-button color="accent" class="mr-2"
+                  [disabled]="email.invalid || password.invalid"
+                  (click)="registration()"
+          >Registration</button>
+
           <button mat-raised-button color="accent"
                   [disabled]="email.invalid || password.invalid"
                   (click)="login()"
-          >Login</button>
+          >Sign in</button>
         </div>
       </div>
 
     </mat-card>
+
+    <app-error></app-error>
   </div>
 </div>

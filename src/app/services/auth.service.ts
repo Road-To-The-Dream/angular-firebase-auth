@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import * as firebase from "firebase";
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
+import {ErrorService} from "./error.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthService {
   private env = environment;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private errorService: ErrorService,
   ) {
   }
 
@@ -28,17 +30,18 @@ export class AuthService {
     };
 
     if (!firebase.apps.length) {
-      // firebase.initializeApp(firebaseConfig);
+      firebase.initializeApp(firebaseConfig);
     }
   }
 
   isLogin() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log('user: ', user);
+        this.authUser = user;
+        const token = this.getToken(user);
         this.router.navigateByUrl('base');
       } else {
-        console.log('user signed: ', user);
+        this.authUser = null;
         this.router.navigateByUrl('login');
       }
     });
@@ -47,21 +50,25 @@ export class AuthService {
   login(email: string, password: string) {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch(error => {
-        console.log('ERROR: ', error)
+        this.errorService.receivedError.next(error);
       });
-
-    this.authUser = true;
   }
 
   registration(email: string, password: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-    });
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .catch(error => {
+        this.errorService.receivedError.next(error);
+      });
   }
 
   logout() {
+    firebase.auth().signOut();
+    this.router.navigateByUrl('login');
+  }
 
+  private getToken(user) {
+    return user.getIdTokenResult().then(idTokenResult => {
+      return idTokenResult;
+    });
   }
 }

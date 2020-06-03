@@ -17,12 +17,14 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthService} from "./services/auth.service";
 import {MatChipsModule} from "@angular/material/chips";
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    BasePageComponent
+    BasePageComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
