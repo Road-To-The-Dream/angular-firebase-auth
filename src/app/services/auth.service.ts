@@ -34,7 +34,7 @@ export class AuthService {
     }
   }
 
-  isLogin() {
+  isSignIn() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.authUser = user;
@@ -47,11 +47,15 @@ export class AuthService {
     });
   }
 
-  login(email: string, password: string) {
+  signIn(email: string, password: string) {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch(error => {
         this.errorService.receivedError.next(error);
       });
+  }
+
+  googleSignIn() {
+
   }
 
   registration(email: string, password: string) {

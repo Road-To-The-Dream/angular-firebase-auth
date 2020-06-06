@@ -48,8 +48,12 @@ export class LoginComponent {
 
   login() {
     if (this.email.valid || this.password.valid) {
-      this.authService.login(this.email.value, this.password.value);
+      this.authService.signIn(this.email.value, this.password.value);
     }
+  }
+
+  googleSignIn() {
+    this.authService.googleSignIn();
   }
 
   registration() {
