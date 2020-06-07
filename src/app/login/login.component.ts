@@ -56,6 +56,10 @@ export class LoginComponent {
     this.authService.googleSignIn();
   }
 
+  gitHubSignIn() {
+    this.authService.gitHubSignIn();
+  }
+
   registration() {
     if (this.email.valid || this.password.valid) {
       this.authService.registration(this.email.value, this.password.value);

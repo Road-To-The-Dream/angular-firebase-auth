@@ -65,6 +65,15 @@ export class AuthService {
     });
   }
 
+  public gitHubSignIn() {
+    const provider = new firebase.auth.GithubAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then()
+      .catch(error => {
+        this.errorService.receivedError.next(error.message);
+      });
+  }
+
   public registration(email: string, password: string) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(error => {
