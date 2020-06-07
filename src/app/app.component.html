@@ -7,9 +7,16 @@
     </div>
 
     <div *ngIf="authService.authUser" class="col-10 logout-icon text-right">
-      <button mat-mini-fab color="accent" (click)="authService.logout()">
-        <mat-icon>exit_to_app</mat-icon>
-      </button>
+      <div class="row align-items-center justify-content-center">
+        <div class="col-11">
+          {{authService.authUser.name}}
+        </div>
+        <div class="col-1">
+          <button mat-mini-fab color="accent" (click)="authService.logout()">
+            <mat-icon>exit_to_app</mat-icon>
+          </button>
+        </div>
+      </div>
     </div>
 
 </div>

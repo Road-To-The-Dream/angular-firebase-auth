@@ -3,6 +3,7 @@ import * as firebase from "firebase";
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
 import {ErrorService} from "./error.service";
+import {User} from "../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
   ) {
   }
 
-  initialize() {
+  public initialize() {
     const firebaseConfig = {
       apiKey: this.env.firebase.apiKey,
       authDomain: this.env.firebase.authDomain,
@@ -34,10 +35,11 @@ export class AuthService {
     }
   }
 
-  isSignIn() {
+  public isSignIn() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.authUser = user;
+        this.authUser = new User();
+        this.authUser.setUser(user);
         const token = this.getToken(user);
         this.router.navigateByUrl('base');
       } else {
@@ -47,25 +49,30 @@ export class AuthService {
     });
   }
 
-  signIn(email: string, password: string) {
+  public signIn(email: string, password: string) {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch(error => {
         this.errorService.receivedError.next(error);
       });
   }
 
-  googleSignIn() {
-
+  public googleSignIn() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then()
+      .catch(error => {
+      this.errorService.receivedError.next(error.message);
+    });
   }
 
-  registration(email: string, password: string) {
+  public registration(email: string, password: string) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(error => {
         this.errorService.receivedError.next(error);
       });
   }
 
-  logout() {
+  public logout() {
     firebase.auth().signOut();
     this.router.navigateByUrl('login');
   }
